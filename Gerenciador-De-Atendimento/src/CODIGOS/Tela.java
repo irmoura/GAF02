@@ -228,7 +228,7 @@ public class Tela extends javax.swing.JFrame {
         }
         ////////////////////////////////////////////////////////////////////////
         /*ANTES DO HORARIO O BOTAO INICIA DESABILITADO*/
-        if((hora <= hora_chegada_tec_1 && minuto < minuto_chegada_tec_1) || (hora <= hora_chegada_tec_1 && minuto >= minuto_chegada_tec_1)){
+        if((hora <= hora_chegada_tec_1 && minuto < minuto_chegada_tec_1)){
             TEC_1_BTN.setSelected(true);
             TEC_1_BTN.setBackground(Color.red);
             TEC_1_BTN.setText(""+palavras_separadas_linha_1[0]);
