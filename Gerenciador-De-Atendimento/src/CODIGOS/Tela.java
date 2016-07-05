@@ -10,7 +10,6 @@ import static CODIGOS.Arquivo.palavras_separadas_linha_2;
 import static CODIGOS.Arquivo.palavras_separadas_linha_3;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
@@ -27,7 +26,13 @@ public class Tela extends javax.swing.JFrame {
     public int atendimentos_tecnico_2;
     public int atendimentos_tecnico_3;
     public int contador;
-    public static Color cor_do_selecionado = Color.YELLOW;
+    public int hora_chegada_tecnico_1 = 10;
+    public int minuto_chegada_tecnico_1 = 20;
+    public int hora_chegada_tecnico_2 = 8;
+    public int minuto_chegada_tecnico_2 = 0;
+    public int hora_chegada_tecnico_3 = 8;
+    public int minuto_chegada_tecnico_3 = 0;
+    public int hora, minuto, segundo;
     public static Calendar now;
     public static Timer timer;
 
@@ -155,13 +160,41 @@ public class Tela extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         
+        now = Calendar.getInstance();
+  
+        hora = Integer.parseInt(String.format("%1$tH", now));
+        minuto = Integer.parseInt(String.format("%1$tM", now));
+        segundo = Integer.parseInt(String.format("%1$tS", now));
+        
         int delay = 1000;//1000
         
         timer = new Timer(delay, (ActionEvent e) -> {
             contador++;
             
             now = Calendar.getInstance();
-            TEXTO_HORA.setText(String.format("%1$tH:%1$tM:%1$tS", now));
+            String horas = String.format("%1$tH:%1$tM:%1$tS", now);
+            TEXTO_HORA.setText(horas);
+            
+            if(horas.equals(hora_chegada_tecnico_1+":"+minuto_chegada_tecnico_1+":00")){/*HABILITA O BOTAO NA HORA E MINUTO MARCADOS*/
+                TECNICO_1_BOTAO.setSelected(false);
+                TECNICO_1_BOTAO.setBackground(Color.green);
+            }
+            if(horas.equals(hora_chegada_tecnico_2+":"+minuto_chegada_tecnico_2+":00")){/*HABILITA O BOTAO NA HORA E MINUTO MARCADOS*/
+                TECNICO_2_BOTAO.setSelected(false);
+                TECNICO_2_BOTAO.setBackground(Color.green);
+            }
+            if(horas.equals(hora_chegada_tecnico_3+":"+minuto_chegada_tecnico_3+":00")){/*HABILITA O BOTAO NA HORA E MINUTO MARCADOS*/
+                TECNICO_3_BOTAO.setSelected(false);
+                TECNICO_3_BOTAO.setBackground(Color.green);
+            }
+            if(horas.equals("17:00:00")){
+                TECNICO_2_BOTAO.setSelected(true);        /*        ESTE CÓDIGO DESAHABILITA A CHAMADA                 */
+                TECNICO_2_BOTAO.setBackground(Color.red);/*        ESTE CÓDIGO DESAHABILITA A CHAMADA                 */
+                
+                TECNICO_3_BOTAO.setSelected(true);        /*        ESTE CÓDIGO DESAHABILITA A CHAMADA                 */
+                TECNICO_3_BOTAO.setBackground(Color.red);/*        ESTE CÓDIGO DESAHABILITA A CHAMADA                 */
+            }
+            
         });
         
         timer.start();
@@ -176,10 +209,18 @@ public class Tela extends javax.swing.JFrame {
         BOTAO_ZERAR.setEnabled(habilitar);
         
         TEXTO_NOME_DA_VEZ.setForeground(Color.BLACK);
-        
-        TECNICO_1_BOTAO.setSelected(habilitar);
-        TECNICO_1_BOTAO.setBackground(Color.green);
-        TECNICO_1_BOTAO.setText(""+palavras_separadas_linha_1[0]);
+        ////////////////////////////////////////////////////////////////////////
+        if((hora >= hora_chegada_tecnico_1 && minuto >= minuto_chegada_tecnico_1) || (hora >= hora_chegada_tecnico_1 && minuto <= minuto_chegada_tecnico_1)){
+            TECNICO_1_BOTAO.setSelected(false);/*  FALSE O BOTAO INICIA HABILITADO  */
+            TECNICO_1_BOTAO.setBackground(Color.green);/*  DEFINE A COR QUE O BOTAO IRÁ INICIAR  */
+            TECNICO_1_BOTAO.setText(""+palavras_separadas_linha_1[0]);
+        }
+        if(hora <= hora_chegada_tecnico_1 && minuto < minuto_chegada_tecnico_1){
+            TECNICO_1_BOTAO.setSelected(true);/*  TRUE O BOTAO INICIA DESABILITADO  */
+            TECNICO_1_BOTAO.setBackground(Color.red);/*  DEFINE A COR QUE O BOTAO IRÁ INICIAR  */
+            TECNICO_1_BOTAO.setText(""+palavras_separadas_linha_1[0]);
+        }
+        ////////////////////////////////////////////////////////////////////////
         
         TECNICO_2_BOTAO.setSelected(habilitar);
         TECNICO_2_BOTAO.setBackground(Color.green);
