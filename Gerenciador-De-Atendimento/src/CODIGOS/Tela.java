@@ -40,6 +40,8 @@ public class Tela extends javax.swing.JFrame {
     public Timer timer;
     public Boolean ativar = false;//FALSE == ATIVADO
     public Boolean desativar = true;//TRUE == DESATIVADO
+    
+    public Password password;
 
     /**
      * Creates new form Tela
@@ -173,6 +175,7 @@ public class Tela extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         
+        password = new Password();
         obterHoras();//OBTEM A HORA EM QUE O PROGRAMA É ABERTO
         CODIGOS.Pasta.criar("GaF02");//Cria a pasta principal do programa C:\\GaF02
         CODIGOS.Arquivo.criar("Tecnicos");//Cria o arquivo principal do programa C:\\GaF02\\Tecnicos.txt
@@ -250,20 +253,33 @@ public class Tela extends javax.swing.JFrame {
         
         vez++;//A cada clique incrementa +1  
         
+        ////////////////////////////////////////////////////////////////////////
+        /*SE NENHUM BOTAO ESTIVER HABILITADO*/
+        if(TEC_1_BTN.isSelected() && TEC_2_BTN.isSelected() && TEC_3_BTN.isSelected()){
+            JOptionPane.showMessageDialog(null,"Habilite pelo menos um Técnico.","Aviso",JOptionPane.WARNING_MESSAGE);
+        }
+        ////////////////////////////////////////////////////////////////////////
+        /*SE A VEZ FOR DO 1º E O MESMO ESTIVER DESABILITADO*/
         if(vez == 1 && TEC_1_BTN.isSelected()){
             vez++;
         }
+        ////////////////////////////////////////////////////////////////////////
+        /*SE A VEZ FOR DO 2º E O MESMO ESTIVER DESABILITADO*/
         if(vez == 2 && TEC_2_BTN.isSelected()){
             vez++;
         }
+        ////////////////////////////////////////////////////////////////////////
+        /*SE A VEZ FOR DO 3º E O MESMO ESTIVER DESABILITADO*/
         if(vez == 3 && TEC_3_BTN.isSelected()){
             vez=1;
         }
+        ////////////////////////////////////////////////////////////////////////
+        /*SE APENAS O 2º BOTAO ESTIVER HABILITADO*/
         if(TEC_1_BTN.isSelected() && TEC_3_BTN.isSelected()){
             vez=2;
         }
-        
-        
+        ////////////////////////////////////////////////////////////////////////
+        /*SE A VEZ FOR DO 1º E O MESMO ESTIVER HABILITADO*/
         if(vez == 1 && !TEC_1_BTN.isSelected()){
             
             TEXTO_NOME_DA_VEZ.setText(palavras_separadas_linha_1[0]+" - "+palavras_separadas_linha_1[1]);
@@ -272,6 +288,8 @@ public class Tela extends javax.swing.JFrame {
             total_de_atendimentos++;
             
         }
+        ////////////////////////////////////////////////////////////////////////
+        /*SE A VEZ FOR DO 2º E O MESMO ESTIVER HABILITADO*/
         if(vez == 2 && !TEC_2_BTN.isSelected()){
             
             TEXTO_NOME_DA_VEZ.setText(palavras_separadas_linha_2[0]+" - "+palavras_separadas_linha_2[1]);
@@ -280,6 +298,8 @@ public class Tela extends javax.swing.JFrame {
             total_de_atendimentos++;
             
         }
+        ////////////////////////////////////////////////////////////////////////
+        /*SE A VEZ FOR DO 3º E O MESMO ESTIVER HABILITADO*/
         if(vez == 3 && !TEC_3_BTN.isSelected()){ 
             
             TEXTO_NOME_DA_VEZ.setText(palavras_separadas_linha_3[0]+" - "+palavras_separadas_linha_3[1]);
@@ -289,10 +309,12 @@ public class Tela extends javax.swing.JFrame {
             
             vez = 0;
         }
+        ////////////////////////////////////////////////////////////////////////
+        /*SE A VEZ FOR DO 3º E O MESMO ESTIVER DESABILITADO*/
         if(vez == 3 && TEC_3_BTN.isSelected()){
             vez = 0;
         }
-        
+        ////////////////////////////////////////////////////////////////////////
         TEXTO_TOTAL.setText("Atendimentos : "+total_de_atendimentos);
         
         CODIGOS.Arquivo.gravar("Total de atendimentos: "+total_de_atendimentos,
@@ -310,20 +332,40 @@ public class Tela extends javax.swing.JFrame {
         JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, options, options[0]);   
   
         if (opcao != 0){
-        //JOptionPane.showMessageDialog(null,"";
+        //JOptionPane.showMessageDialog(null,"");
         }else{
-        vez = 0;
-        total_de_atendimentos = 0;
-        atendimentos_tec_1 = 0;
-        atendimentos_tec_2 = 0;
-        atendimentos_tec_3 = 0;
-        TEXTO_TOTAL.setText("ATENDIMENTOS : ");
-        TEXTO_NOME_DA_VEZ.setText("");
-        TEC_1_BTN.setText(""+palavras_separadas_linha_1[0]);
-        TEC_2_BTN.setText(""+palavras_separadas_linha_2[0]);
-        TEC_3_BTN.setText(""+palavras_separadas_linha_3[0]);
-        BOTAO_ZERAR.setEnabled(false);
-        } 
+              
+            String senha = "";
+            int tentativas = 3;//Define o número de tentativas que o usuário terá para acertar a senha.
+            
+            for(int i=0;i<tentativas;i++)
+            {
+                if(!senha.equals(password.senha))      
+                {
+                    
+                    senha = JOptionPane.showInputDialog(null,"Password: ","Warning "+(i+1)+"ª tentativa.",JOptionPane.OK_CANCEL_OPTION);
+                    
+                }    
+            }
+            if (!senha.equals(password.senha) || senha.equals(null))    
+            {
+                JOptionPane.showMessageDialog(null,"Senha incorreta ou operação cancelada","Aviso",JOptionPane.WARNING_MESSAGE);
+            }
+            else
+            {
+                vez = 0;
+                total_de_atendimentos = 0;
+                atendimentos_tec_1 = 0;
+                atendimentos_tec_2 = 0;
+                atendimentos_tec_3 = 0;
+                TEXTO_TOTAL.setText("ATENDIMENTOS : ");
+                TEXTO_NOME_DA_VEZ.setText("");
+                TEC_1_BTN.setText(""+palavras_separadas_linha_1[0]);
+                TEC_2_BTN.setText(""+palavras_separadas_linha_2[0]);
+                TEC_3_BTN.setText(""+palavras_separadas_linha_3[0]);
+                BOTAO_ZERAR.setEnabled(false);
+            }
+        }
         
     }//GEN-LAST:event_BOTAO_ZERARActionPerformed
 
