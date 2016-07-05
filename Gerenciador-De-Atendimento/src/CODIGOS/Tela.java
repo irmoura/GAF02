@@ -22,25 +22,37 @@ public class Tela extends javax.swing.JFrame {
     
     public int vez;
     public int total_de_atendimentos;
-    public int atendimentos_tecnico_1;
-    public int atendimentos_tecnico_2;
-    public int atendimentos_tecnico_3;
+    public int atendimentos_tec_1;
+    public int atendimentos_tec_2;
+    public int atendimentos_tec_3;
     public int contador;
-    public int hora_chegada_tecnico_1 = 10;
-    public int minuto_chegada_tecnico_1 = 20;
-    public int hora_chegada_tecnico_2 = 8;
-    public int minuto_chegada_tecnico_2 = 0;
-    public int hora_chegada_tecnico_3 = 8;
-    public int minuto_chegada_tecnico_3 = 0;
+    public int hora_chegada_tec_1 = 10;
+    public int minuto_chegada_tec_1 = 20;
+    public int hora_chegada_tec_2 = 8;
+    public int minuto_chegada_tec_2 = 0;
+    public int hora_chegada_tec_3 = 8;
+    public int minuto_chegada_tec_3 = 0;
     public int hora, minuto, segundo;
-    public static Calendar now;
-    public static Timer timer;
+    public String horas;
+    public Calendar now;
+    public Color red = Color.red;
+    public Timer timer;
+    public Boolean ativar = false;//FALSE == ATIVADO
+    public Boolean desativar = true;//TRUE == DESATIVADO
 
     /**
      * Creates new form Tela
      */
     public Tela() {
         initComponents();
+    }
+    
+    public void obterHoras(){
+        now = Calendar.getInstance();
+        horas = String.format("%1$tH:%1$tM:%1$tS", now);//HORAS NO FORMATO 13:00:00
+        hora = Integer.parseInt(String.format("%1$tH", now));//HORAS 13
+        minuto = Integer.parseInt(String.format("%1$tM", now));//MINUTO 00
+        segundo = Integer.parseInt(String.format("%1$tS", now));//SEGUNDO
     }
 
     /**
@@ -55,9 +67,9 @@ public class Tela extends javax.swing.JFrame {
         TEXTO_NOME_DA_VEZ = new javax.swing.JLabel();
         BOTAO_ZERAR = new javax.swing.JButton();
         TEXTO_TOTAL = new javax.swing.JLabel();
-        TECNICO_1_BOTAO = new javax.swing.JToggleButton();
-        TECNICO_2_BOTAO = new javax.swing.JToggleButton();
-        TECNICO_3_BOTAO = new javax.swing.JToggleButton();
+        TEC_1_BTN = new javax.swing.JToggleButton();
+        TEC_2_BTN = new javax.swing.JToggleButton();
+        TEC_3_BTN = new javax.swing.JToggleButton();
         TEXTO_HORA = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -85,24 +97,24 @@ public class Tela extends javax.swing.JFrame {
 
         TEXTO_TOTAL.setText("Atendimentos : ");
 
-        TECNICO_1_BOTAO.setText("Técnico 1");
-        TECNICO_1_BOTAO.addMouseListener(new java.awt.event.MouseAdapter() {
+        TEC_1_BTN.setText("Técnico 1");
+        TEC_1_BTN.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TECNICO_1_BOTAOMouseClicked(evt);
+                TEC_1_BTNMouseClicked(evt);
             }
         });
 
-        TECNICO_2_BOTAO.setText("Técnico 2");
-        TECNICO_2_BOTAO.addMouseListener(new java.awt.event.MouseAdapter() {
+        TEC_2_BTN.setText("Técnico 2");
+        TEC_2_BTN.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TECNICO_2_BOTAOMouseClicked(evt);
+                TEC_2_BTNMouseClicked(evt);
             }
         });
 
-        TECNICO_3_BOTAO.setText("Técnico 3");
-        TECNICO_3_BOTAO.addMouseListener(new java.awt.event.MouseAdapter() {
+        TEC_3_BTN.setText("Técnico 3");
+        TEC_3_BTN.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TECNICO_3_BOTAOMouseClicked(evt);
+                TEC_3_BTNMouseClicked(evt);
             }
         });
 
@@ -119,11 +131,11 @@ public class Tela extends javax.swing.JFrame {
                         .addComponent(TEXTO_NOME_DA_VEZ, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(52, 52, 52)
-                        .addComponent(TECNICO_1_BOTAO)
+                        .addComponent(TEC_1_BTN)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TECNICO_2_BOTAO)
+                        .addComponent(TEC_2_BTN)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TECNICO_3_BOTAO)
+                        .addComponent(TEC_3_BTN)
                         .addGap(0, 95, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -147,9 +159,9 @@ public class Tela extends javax.swing.JFrame {
                 .addComponent(TEXTO_NOME_DA_VEZ, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TECNICO_1_BOTAO)
-                    .addComponent(TECNICO_2_BOTAO)
-                    .addComponent(TECNICO_3_BOTAO))
+                    .addComponent(TEC_1_BTN)
+                    .addComponent(TEC_2_BTN)
+                    .addComponent(TEC_3_BTN))
                 .addGap(66, 66, 66))
         );
 
@@ -160,134 +172,131 @@ public class Tela extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         
-        now = Calendar.getInstance();
+        BOTAO_ZERAR.setEnabled(false);//INICIA COM O BOTAO ZERAR DESATIVADO
+        
+        obterHoras();//OBTEM A HORA EM QUE O PROGRAMA É ABERTO
   
-        hora = Integer.parseInt(String.format("%1$tH", now));
-        minuto = Integer.parseInt(String.format("%1$tM", now));
-        segundo = Integer.parseInt(String.format("%1$tS", now));
-        
-        int delay = 1000;//1000
-        
-        timer = new Timer(delay, (ActionEvent e) -> {
+        timer = new Timer(1000, (ActionEvent e) -> {
+            
             contador++;
             
-            now = Calendar.getInstance();
-            String horas = String.format("%1$tH:%1$tM:%1$tS", now);
+            obterHoras();
+
             TEXTO_HORA.setText(horas);
-            
-            if(horas.equals(hora_chegada_tecnico_1+":"+minuto_chegada_tecnico_1+":00")){/*HABILITA O BOTAO NA HORA E MINUTO MARCADOS*/
-                TECNICO_1_BOTAO.setSelected(false);
-                TECNICO_1_BOTAO.setBackground(Color.green);
+            ////////////////////////////////////////////////////////////////////
+            /*HABILITA O BOTAO NA HORA E MINUTO DEFINIDOS*/
+            if(horas.equals(hora_chegada_tec_1+":"+minuto_chegada_tec_1+":00")){
+                TEC_1_BTN.setSelected(ativar);
+                TEC_1_BTN.setBackground(Color.green);
             }
-            if(horas.equals(hora_chegada_tecnico_2+":"+minuto_chegada_tecnico_2+":00")){/*HABILITA O BOTAO NA HORA E MINUTO MARCADOS*/
-                TECNICO_2_BOTAO.setSelected(false);
-                TECNICO_2_BOTAO.setBackground(Color.green);
+            if(horas.equals(hora_chegada_tec_2+":"+minuto_chegada_tec_2+":00")){
+                TEC_2_BTN.setSelected(ativar);
+                TEC_2_BTN.setBackground(Color.green);
             }
-            if(horas.equals(hora_chegada_tecnico_3+":"+minuto_chegada_tecnico_3+":00")){/*HABILITA O BOTAO NA HORA E MINUTO MARCADOS*/
-                TECNICO_3_BOTAO.setSelected(false);
-                TECNICO_3_BOTAO.setBackground(Color.green);
+            if(horas.equals(hora_chegada_tec_3+":"+minuto_chegada_tec_3+":00")){
+                TEC_3_BTN.setSelected(ativar);
+                TEC_3_BTN.setBackground(Color.green);
             }
+            ////////////////////////////////////////////////////////////////////
+            /*DESAHABILITA O BOTAO NA HORA E MINUTO DEFINIDOS*/
             if(horas.equals("17:00:00")){
-                TECNICO_2_BOTAO.setSelected(true);        /*        ESTE CÓDIGO DESAHABILITA A CHAMADA                 */
-                TECNICO_2_BOTAO.setBackground(Color.red);/*        ESTE CÓDIGO DESAHABILITA A CHAMADA                 */
-                
-                TECNICO_3_BOTAO.setSelected(true);        /*        ESTE CÓDIGO DESAHABILITA A CHAMADA                 */
-                TECNICO_3_BOTAO.setBackground(Color.red);/*        ESTE CÓDIGO DESAHABILITA A CHAMADA                 */
+                TEC_2_BTN.setSelected(desativar);        
+                TEC_2_BTN.setBackground(red);
+                TEC_3_BTN.setSelected(desativar);
+                TEC_3_BTN.setBackground(red);
             }
-            
+            ////////////////////////////////////////////////////////////////////
         });
         
         timer.start();
         
-        Boolean habilitar = false;
+        CODIGOS.Pasta.criar("GaF02");//Cria a pasta principal do programa C:\\GaF02
+        CODIGOS.Arquivo.criar("Tecnicos");//Cria o arquivo principal do programa C:\\GaF02\\Tecnicos.txt
+        CODIGOS.Arquivo.criar("Registros");//Cria o arquivo C:\\GaF02\\Registros.txt
+        CODIGOS.Arquivo.ler("Tecnicos");//Faz a leitura do arquivo principal C:\\GaF02\\Tecnicos.txt
         
-        CODIGOS.Pasta.criar("GaF02");//Cria a pasta principal do programa
-        CODIGOS.Arquivo.criar("Tecnicos");//Cria o arquivo principal do programa
-        CODIGOS.Arquivo.criar("Registros");
-        CODIGOS.Arquivo.ler("Tecnicos");//Faz a leitura do arquivo principal
         
-        BOTAO_ZERAR.setEnabled(habilitar);
         
         TEXTO_NOME_DA_VEZ.setForeground(Color.BLACK);
         ////////////////////////////////////////////////////////////////////////
-        if((hora >= hora_chegada_tecnico_1 && minuto >= minuto_chegada_tecnico_1) || (hora >= hora_chegada_tecnico_1 && minuto <= minuto_chegada_tecnico_1)){
-            TECNICO_1_BOTAO.setSelected(false);/*  FALSE O BOTAO INICIA HABILITADO  */
-            TECNICO_1_BOTAO.setBackground(Color.green);/*  DEFINE A COR QUE O BOTAO IRÁ INICIAR  */
-            TECNICO_1_BOTAO.setText(""+palavras_separadas_linha_1[0]);
+        if((hora >= hora_chegada_tec_1 && minuto >= minuto_chegada_tec_1) || (hora >= hora_chegada_tec_1 && minuto <= minuto_chegada_tec_1)){
+            TEC_1_BTN.setSelected(false);/*  FALSE O BOTAO INICIA HABILITADO  */
+            TEC_1_BTN.setBackground(Color.green);/*  DEFINE A COR QUE O BOTAO IRÁ INICIAR  */
+            TEC_1_BTN.setText(""+palavras_separadas_linha_1[0]);
         }
-        if(hora <= hora_chegada_tecnico_1 && minuto < minuto_chegada_tecnico_1){
-            TECNICO_1_BOTAO.setSelected(true);/*  TRUE O BOTAO INICIA DESABILITADO  */
-            TECNICO_1_BOTAO.setBackground(Color.red);/*  DEFINE A COR QUE O BOTAO IRÁ INICIAR  */
-            TECNICO_1_BOTAO.setText(""+palavras_separadas_linha_1[0]);
+        if((hora <= hora_chegada_tec_1 && minuto < minuto_chegada_tec_1) || (hora <= hora_chegada_tec_1 && minuto >= minuto_chegada_tec_1)){
+            TEC_1_BTN.setSelected(true);/*  TRUE O BOTAO INICIA DESABILITADO  */
+            TEC_1_BTN.setBackground(Color.red);/*  DEFINE A COR QUE O BOTAO IRÁ INICIAR  */
+            TEC_1_BTN.setText(""+palavras_separadas_linha_1[0]);
         }
         ////////////////////////////////////////////////////////////////////////
         
-        TECNICO_2_BOTAO.setSelected(habilitar);
-        TECNICO_2_BOTAO.setBackground(Color.green);
-        TECNICO_2_BOTAO.setText(""+palavras_separadas_linha_2[0]);
+        TEC_2_BTN.setSelected(ativar);
+        TEC_2_BTN.setBackground(Color.green);
+        TEC_2_BTN.setText(""+palavras_separadas_linha_2[0]);
         
-        TECNICO_3_BOTAO.setSelected(habilitar);
-        TECNICO_3_BOTAO.setBackground(Color.green);
-        TECNICO_3_BOTAO.setText(""+palavras_separadas_linha_3[0]);
+        TEC_3_BTN.setSelected(ativar);
+        TEC_3_BTN.setBackground(Color.green);
+        TEC_3_BTN.setText(""+palavras_separadas_linha_3[0]);
         
     }//GEN-LAST:event_formWindowOpened
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         // TODO add your handling code here:
         
-        BOTAO_ZERAR.setEnabled(true);
+        BOTAO_ZERAR.setEnabled(desativar);//Ao primeiro clique habilita o botão zerar
         
-        vez++;  
+        vez++;//A cada clique incrementa +1  
         
-        if(vez == 1 && TECNICO_1_BOTAO.isSelected()){
+        if(vez == 1 && TEC_1_BTN.isSelected()){
             vez++;
         }
-        if(vez == 2 && TECNICO_2_BOTAO.isSelected()){
+        if(vez == 2 && TEC_2_BTN.isSelected()){
             vez++;
         }
-        if(vez == 3 && TECNICO_3_BOTAO.isSelected()){
+        if(vez == 3 && TEC_3_BTN.isSelected()){
             vez=1;
         }
-        if(TECNICO_1_BOTAO.isSelected() && TECNICO_3_BOTAO.isSelected()){
+        if(TEC_1_BTN.isSelected() && TEC_3_BTN.isSelected()){
             vez=2;
         }
         
         
-        if(vez == 1 && !TECNICO_1_BOTAO.isSelected()){
+        if(vez == 1 && !TEC_1_BTN.isSelected()){
             
             TEXTO_NOME_DA_VEZ.setText(palavras_separadas_linha_1[0]+" - "+palavras_separadas_linha_1[1]);
-            atendimentos_tecnico_1++;
-            TECNICO_1_BOTAO.setText(palavras_separadas_linha_1[0]+" - "+atendimentos_tecnico_1);
+            atendimentos_tec_1++;
+            TEC_1_BTN.setText(palavras_separadas_linha_1[0]+" - "+atendimentos_tec_1);
             total_de_atendimentos++;
             
         }
-        if(vez == 2 && !TECNICO_2_BOTAO.isSelected()){
+        if(vez == 2 && !TEC_2_BTN.isSelected()){
             
             TEXTO_NOME_DA_VEZ.setText(palavras_separadas_linha_2[0]+" - "+palavras_separadas_linha_2[1]);
-            atendimentos_tecnico_2++;
-            TECNICO_2_BOTAO.setText(palavras_separadas_linha_2[0]+" - "+atendimentos_tecnico_2);
+            atendimentos_tec_2++;
+            TEC_2_BTN.setText(palavras_separadas_linha_2[0]+" - "+atendimentos_tec_2);
             total_de_atendimentos++;
             
         }
-        if(vez == 3 && !TECNICO_3_BOTAO.isSelected()){ 
+        if(vez == 3 && !TEC_3_BTN.isSelected()){ 
             
             TEXTO_NOME_DA_VEZ.setText(palavras_separadas_linha_3[0]+" - "+palavras_separadas_linha_3[1]);
-            atendimentos_tecnico_3++;
-            TECNICO_3_BOTAO.setText(palavras_separadas_linha_3[0]+" - "+atendimentos_tecnico_3);
+            atendimentos_tec_3++;
+            TEC_3_BTN.setText(palavras_separadas_linha_3[0]+" - "+atendimentos_tec_3);
             total_de_atendimentos++;
             
             vez = 0;
         }
-        if(vez == 3 && TECNICO_3_BOTAO.isSelected()){
+        if(vez == 3 && TEC_3_BTN.isSelected()){
             vez = 0;
         }
         
         TEXTO_TOTAL.setText("Atendimentos : "+total_de_atendimentos);
         
         CODIGOS.Arquivo.gravar("Total de atendimentos: "+total_de_atendimentos,
-                               palavras_separadas_linha_1[0]+" = "+atendimentos_tecnico_1,
-                               palavras_separadas_linha_2[0]+" = "+atendimentos_tecnico_2,
-                               palavras_separadas_linha_3[0]+" = "+atendimentos_tecnico_3);
+                               palavras_separadas_linha_1[0]+" = "+atendimentos_tec_1,
+                               palavras_separadas_linha_2[0]+" = "+atendimentos_tec_2,
+                               palavras_separadas_linha_3[0]+" = "+atendimentos_tec_3);
         
     }//GEN-LAST:event_formMouseClicked
 
@@ -303,51 +312,51 @@ public class Tela extends javax.swing.JFrame {
         }else{
         vez = 0;
         total_de_atendimentos = 0;
-        atendimentos_tecnico_1 = 0;
-        atendimentos_tecnico_2 = 0;
-        atendimentos_tecnico_3 = 0;
+        atendimentos_tec_1 = 0;
+        atendimentos_tec_2 = 0;
+        atendimentos_tec_3 = 0;
         TEXTO_TOTAL.setText("ATENDIMENTOS : ");
         TEXTO_NOME_DA_VEZ.setText("");
-        TECNICO_1_BOTAO.setText(""+palavras_separadas_linha_1[0]);
-        TECNICO_2_BOTAO.setText(""+palavras_separadas_linha_2[0]);
-        TECNICO_3_BOTAO.setText(""+palavras_separadas_linha_3[0]);
+        TEC_1_BTN.setText(""+palavras_separadas_linha_1[0]);
+        TEC_2_BTN.setText(""+palavras_separadas_linha_2[0]);
+        TEC_3_BTN.setText(""+palavras_separadas_linha_3[0]);
         BOTAO_ZERAR.setEnabled(false);
         } 
         
     }//GEN-LAST:event_BOTAO_ZERARActionPerformed
 
-    private void TECNICO_1_BOTAOMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TECNICO_1_BOTAOMouseClicked
+    private void TEC_1_BTNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TEC_1_BTNMouseClicked
         // TODO add your handling code here:
-        if(TECNICO_1_BOTAO.isSelected()){
-            TECNICO_1_BOTAO.setSelected(true);
-            TECNICO_1_BOTAO.setBackground(Color.red);
+        if(TEC_1_BTN.isSelected()){
+            TEC_1_BTN.setSelected(true);
+            TEC_1_BTN.setBackground(Color.red);
         }else{
-            TECNICO_1_BOTAO.setSelected(false);
-            TECNICO_1_BOTAO.setBackground(Color.green);
+            TEC_1_BTN.setSelected(false);
+            TEC_1_BTN.setBackground(Color.green);
         }  
-    }//GEN-LAST:event_TECNICO_1_BOTAOMouseClicked
+    }//GEN-LAST:event_TEC_1_BTNMouseClicked
 
-    private void TECNICO_2_BOTAOMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TECNICO_2_BOTAOMouseClicked
+    private void TEC_2_BTNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TEC_2_BTNMouseClicked
         // TODO add your handling code here:
-        if(TECNICO_2_BOTAO.isSelected()){
-            TECNICO_2_BOTAO.setSelected(true);
-            TECNICO_2_BOTAO.setBackground(Color.red);
+        if(TEC_2_BTN.isSelected()){
+            TEC_2_BTN.setSelected(true);
+            TEC_2_BTN.setBackground(Color.red);
         }else{
-            TECNICO_2_BOTAO.setSelected(false);
-            TECNICO_2_BOTAO.setBackground(Color.green);
+            TEC_2_BTN.setSelected(false);
+            TEC_2_BTN.setBackground(Color.green);
         }
-    }//GEN-LAST:event_TECNICO_2_BOTAOMouseClicked
+    }//GEN-LAST:event_TEC_2_BTNMouseClicked
 
-    private void TECNICO_3_BOTAOMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TECNICO_3_BOTAOMouseClicked
+    private void TEC_3_BTNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TEC_3_BTNMouseClicked
         // TODO add your handling code here:
-        if(TECNICO_3_BOTAO.isSelected()){
-            TECNICO_3_BOTAO.setSelected(true);
-            TECNICO_3_BOTAO.setBackground(Color.red);
+        if(TEC_3_BTN.isSelected()){
+            TEC_3_BTN.setSelected(true);
+            TEC_3_BTN.setBackground(Color.red);
         }else{
-            TECNICO_3_BOTAO.setSelected(false);
-            TECNICO_3_BOTAO.setBackground(Color.green);
+            TEC_3_BTN.setSelected(false);
+            TEC_3_BTN.setBackground(Color.green);
         }
-    }//GEN-LAST:event_TECNICO_3_BOTAOMouseClicked
+    }//GEN-LAST:event_TEC_3_BTNMouseClicked
 
     /**
      * @param args the command line arguments
@@ -393,9 +402,9 @@ public class Tela extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BOTAO_ZERAR;
-    private javax.swing.JToggleButton TECNICO_1_BOTAO;
-    private javax.swing.JToggleButton TECNICO_2_BOTAO;
-    private javax.swing.JToggleButton TECNICO_3_BOTAO;
+    private javax.swing.JToggleButton TEC_1_BTN;
+    private javax.swing.JToggleButton TEC_2_BTN;
+    private javax.swing.JToggleButton TEC_3_BTN;
     private javax.swing.JLabel TEXTO_HORA;
     private javax.swing.JLabel TEXTO_NOME_DA_VEZ;
     private javax.swing.JLabel TEXTO_TOTAL;

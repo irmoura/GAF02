@@ -36,11 +36,11 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                      <Component id="TECNICO_1_BOTAO" min="-2" max="-2" attributes="0"/>
+                      <Component id="TEC_1_BTN" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="TECNICO_2_BOTAO" min="-2" max="-2" attributes="0"/>
+                      <Component id="TEC_2_BTN" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="TECNICO_3_BOTAO" min="-2" max="-2" attributes="0"/>
+                      <Component id="TEC_3_BTN" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="95" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -70,9 +70,9 @@
               <Component id="TEXTO_NOME_DA_VEZ" min="-2" pref="106" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="TECNICO_1_BOTAO" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="TECNICO_2_BOTAO" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="TECNICO_3_BOTAO" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="TEC_1_BTN" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="TEC_2_BTN" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="TEC_3_BTN" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
           </Group>
@@ -101,28 +101,28 @@
         <Property name="text" type="java.lang.String" value="Atendimentos : "/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JToggleButton" name="TECNICO_1_BOTAO">
+    <Component class="javax.swing.JToggleButton" name="TEC_1_BTN">
       <Properties>
         <Property name="text" type="java.lang.String" value="T&#xe9;cnico 1"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TECNICO_1_BOTAOMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TEC_1_BTNMouseClicked"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JToggleButton" name="TECNICO_2_BOTAO">
+    <Component class="javax.swing.JToggleButton" name="TEC_2_BTN">
       <Properties>
         <Property name="text" type="java.lang.String" value="T&#xe9;cnico 2"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TECNICO_2_BOTAOMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TEC_2_BTNMouseClicked"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JToggleButton" name="TECNICO_3_BOTAO">
+    <Component class="javax.swing.JToggleButton" name="TEC_3_BTN">
       <Properties>
         <Property name="text" type="java.lang.String" value="T&#xe9;cnico 3"/>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TECNICO_3_BOTAOMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TEC_3_BTNMouseClicked"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="TEXTO_HORA">
