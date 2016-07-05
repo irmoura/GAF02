@@ -36,6 +36,7 @@ public class Tela extends javax.swing.JFrame {
     public String horas;
     public Calendar now;
     public Color red = Color.red;
+    public Color black = Color.BLACK;
     public Timer timer;
     public Boolean ativar = false;//FALSE == ATIVADO
     public Boolean desativar = true;//TRUE == DESATIVADO
@@ -172,9 +173,14 @@ public class Tela extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         
-        BOTAO_ZERAR.setEnabled(false);//INICIA COM O BOTAO ZERAR DESATIVADO
-        
         obterHoras();//OBTEM A HORA EM QUE O PROGRAMA É ABERTO
+        CODIGOS.Pasta.criar("GaF02");//Cria a pasta principal do programa C:\\GaF02
+        CODIGOS.Arquivo.criar("Tecnicos");//Cria o arquivo principal do programa C:\\GaF02\\Tecnicos.txt
+        CODIGOS.Arquivo.criar("Registros");//Cria o arquivo C:\\GaF02\\Registros.txt
+        CODIGOS.Arquivo.ler("Tecnicos");//Faz a leitura do arquivo principal C:\\GaF02\\Tecnicos.txt
+        
+        BOTAO_ZERAR.setEnabled(false);//INICIA COM O BOTAO ZERAR DESATIVADO
+        TEXTO_NOME_DA_VEZ.setForeground(black);//DEFINE A COR PADRAO
   
         timer = new Timer(1000, (ActionEvent e) -> {
             
@@ -210,27 +216,22 @@ public class Tela extends javax.swing.JFrame {
         
         timer.start();
         
-        CODIGOS.Pasta.criar("GaF02");//Cria a pasta principal do programa C:\\GaF02
-        CODIGOS.Arquivo.criar("Tecnicos");//Cria o arquivo principal do programa C:\\GaF02\\Tecnicos.txt
-        CODIGOS.Arquivo.criar("Registros");//Cria o arquivo C:\\GaF02\\Registros.txt
-        CODIGOS.Arquivo.ler("Tecnicos");//Faz a leitura do arquivo principal C:\\GaF02\\Tecnicos.txt
-        
-        
-        
-        TEXTO_NOME_DA_VEZ.setForeground(Color.BLACK);
         ////////////////////////////////////////////////////////////////////////
+        /*DEPOIS DO HORARIO O BOTAO INICIA HABILITADO*/
         if((hora >= hora_chegada_tec_1 && minuto >= minuto_chegada_tec_1) || (hora >= hora_chegada_tec_1 && minuto <= minuto_chegada_tec_1)){
-            TEC_1_BTN.setSelected(false);/*  FALSE O BOTAO INICIA HABILITADO  */
-            TEC_1_BTN.setBackground(Color.green);/*  DEFINE A COR QUE O BOTAO IRÁ INICIAR  */
-            TEC_1_BTN.setText(""+palavras_separadas_linha_1[0]);
-        }
-        if((hora <= hora_chegada_tec_1 && minuto < minuto_chegada_tec_1) || (hora <= hora_chegada_tec_1 && minuto >= minuto_chegada_tec_1)){
-            TEC_1_BTN.setSelected(true);/*  TRUE O BOTAO INICIA DESABILITADO  */
-            TEC_1_BTN.setBackground(Color.red);/*  DEFINE A COR QUE O BOTAO IRÁ INICIAR  */
+            TEC_1_BTN.setSelected(false);
+            TEC_1_BTN.setBackground(Color.green);
             TEC_1_BTN.setText(""+palavras_separadas_linha_1[0]);
         }
         ////////////////////////////////////////////////////////////////////////
-        
+        /*ANTES DO HORARIO O BOTAO INICIA DESABILITADO*/
+        if((hora <= hora_chegada_tec_1 && minuto < minuto_chegada_tec_1) || (hora <= hora_chegada_tec_1 && minuto >= minuto_chegada_tec_1)){
+            TEC_1_BTN.setSelected(true);
+            TEC_1_BTN.setBackground(Color.red);
+            TEC_1_BTN.setText(""+palavras_separadas_linha_1[0]);
+        }
+        ////////////////////////////////////////////////////////////////////////
+        /*ESTES BOTOES INICIAM HABILITADOS*/
         TEC_2_BTN.setSelected(ativar);
         TEC_2_BTN.setBackground(Color.green);
         TEC_2_BTN.setText(""+palavras_separadas_linha_2[0]);
@@ -238,6 +239,7 @@ public class Tela extends javax.swing.JFrame {
         TEC_3_BTN.setSelected(ativar);
         TEC_3_BTN.setBackground(Color.green);
         TEC_3_BTN.setText(""+palavras_separadas_linha_3[0]);
+        ////////////////////////////////////////////////////////////////////////
         
     }//GEN-LAST:event_formWindowOpened
 
