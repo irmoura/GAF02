@@ -9,7 +9,11 @@ import static CODIGOS.Arquivo.palavras_separadas_linha_1;
 import static CODIGOS.Arquivo.palavras_separadas_linha_2;
 import static CODIGOS.Arquivo.palavras_separadas_linha_3;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
@@ -22,7 +26,10 @@ public class Tela extends javax.swing.JFrame {
     public int atendimentos_tecnico_1;
     public int atendimentos_tecnico_2;
     public int atendimentos_tecnico_3;
+    public int contador;
     public static Color cor_do_selecionado = Color.YELLOW;
+    public static Calendar now;
+    public static Timer timer;
 
     /**
      * Creates new form Tela
@@ -46,6 +53,7 @@ public class Tela extends javax.swing.JFrame {
         TECNICO_1_BOTAO = new javax.swing.JToggleButton();
         TECNICO_2_BOTAO = new javax.swing.JToggleButton();
         TECNICO_3_BOTAO = new javax.swing.JToggleButton();
+        TEXTO_HORA = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -63,35 +71,37 @@ public class Tela extends javax.swing.JFrame {
         TEXTO_NOME_DA_VEZ.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         TEXTO_NOME_DA_VEZ.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        BOTAO_ZERAR.setText("ZERAR");
+        BOTAO_ZERAR.setText("Zerar");
         BOTAO_ZERAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BOTAO_ZERARActionPerformed(evt);
             }
         });
 
-        TEXTO_TOTAL.setText("ATENDIMENTOS : ");
+        TEXTO_TOTAL.setText("Atendimentos : ");
 
-        TECNICO_1_BOTAO.setText("TECNICO 1");
+        TECNICO_1_BOTAO.setText("Técnico 1");
         TECNICO_1_BOTAO.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TECNICO_1_BOTAOMouseClicked(evt);
             }
         });
 
-        TECNICO_2_BOTAO.setText("TECNICO 2");
+        TECNICO_2_BOTAO.setText("Técnico 2");
         TECNICO_2_BOTAO.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TECNICO_2_BOTAOMouseClicked(evt);
             }
         });
 
-        TECNICO_3_BOTAO.setText("TECNICO 3");
+        TECNICO_3_BOTAO.setText("Técnico 3");
         TECNICO_3_BOTAO.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TECNICO_3_BOTAOMouseClicked(evt);
             }
         });
+
+        TEXTO_HORA.setText("00:00:00");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,13 +119,15 @@ public class Tela extends javax.swing.JFrame {
                         .addComponent(TECNICO_2_BOTAO)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(TECNICO_3_BOTAO)
-                        .addGap(0, 65, Short.MAX_VALUE)))
+                        .addGap(0, 95, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(59, 59, 59)
                 .addComponent(BOTAO_ZERAR)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TEXTO_TOTAL)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TEXTO_HORA)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -124,7 +136,8 @@ public class Tela extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BOTAO_ZERAR)
-                    .addComponent(TEXTO_TOTAL))
+                    .addComponent(TEXTO_TOTAL)
+                    .addComponent(TEXTO_HORA))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(TEXTO_NOME_DA_VEZ, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
@@ -141,6 +154,17 @@ public class Tela extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
+        
+        int delay = 1000;//1000
+        
+        timer = new Timer(delay, (ActionEvent e) -> {
+            contador++;
+            
+            now = Calendar.getInstance();
+            TEXTO_HORA.setText(String.format("%1$tH:%1$tM:%1$tS", now));
+        });
+        
+        timer.start();
         
         Boolean habilitar = false;
         
@@ -172,8 +196,7 @@ public class Tela extends javax.swing.JFrame {
         
         BOTAO_ZERAR.setEnabled(true);
         
-        vez++;
-        
+        vez++;  
         
         if(vez == 1 && TECNICO_1_BOTAO.isSelected()){
             vez++;
@@ -218,7 +241,7 @@ public class Tela extends javax.swing.JFrame {
             vez = 0;
         }
         
-        TEXTO_TOTAL.setText("ATENDIMENTOS : "+total_de_atendimentos);
+        TEXTO_TOTAL.setText("Atendimentos : "+total_de_atendimentos);
         
         CODIGOS.Arquivo.gravar("Total de atendimentos: "+total_de_atendimentos,
                                palavras_separadas_linha_1[0]+" = "+atendimentos_tecnico_1,
@@ -332,6 +355,7 @@ public class Tela extends javax.swing.JFrame {
     private javax.swing.JToggleButton TECNICO_1_BOTAO;
     private javax.swing.JToggleButton TECNICO_2_BOTAO;
     private javax.swing.JToggleButton TECNICO_3_BOTAO;
+    private javax.swing.JLabel TEXTO_HORA;
     private javax.swing.JLabel TEXTO_NOME_DA_VEZ;
     private javax.swing.JLabel TEXTO_TOTAL;
     // End of variables declaration//GEN-END:variables

@@ -41,7 +41,7 @@
                       <Component id="TECNICO_2_BOTAO" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="TECNICO_3_BOTAO" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="65" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="95" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -51,6 +51,8 @@
               <Component id="BOTAO_ZERAR" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="TEXTO_TOTAL" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="TEXTO_HORA" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -62,6 +64,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="BOTAO_ZERAR" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="TEXTO_TOTAL" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="TEXTO_HORA" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="38" max="32767" attributes="0"/>
               <Component id="TEXTO_NOME_DA_VEZ" min="-2" pref="106" max="-2" attributes="0"/>
@@ -87,7 +90,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="BOTAO_ZERAR">
       <Properties>
-        <Property name="text" type="java.lang.String" value="ZERAR"/>
+        <Property name="text" type="java.lang.String" value="Zerar"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BOTAO_ZERARActionPerformed"/>
@@ -95,12 +98,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="TEXTO_TOTAL">
       <Properties>
-        <Property name="text" type="java.lang.String" value="ATENDIMENTOS : "/>
+        <Property name="text" type="java.lang.String" value="Atendimentos : "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JToggleButton" name="TECNICO_1_BOTAO">
       <Properties>
-        <Property name="text" type="java.lang.String" value="TECNICO 1"/>
+        <Property name="text" type="java.lang.String" value="T&#xe9;cnico 1"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TECNICO_1_BOTAOMouseClicked"/>
@@ -108,7 +111,7 @@
     </Component>
     <Component class="javax.swing.JToggleButton" name="TECNICO_2_BOTAO">
       <Properties>
-        <Property name="text" type="java.lang.String" value="TECNICO 2"/>
+        <Property name="text" type="java.lang.String" value="T&#xe9;cnico 2"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TECNICO_2_BOTAOMouseClicked"/>
@@ -116,11 +119,16 @@
     </Component>
     <Component class="javax.swing.JToggleButton" name="TECNICO_3_BOTAO">
       <Properties>
-        <Property name="text" type="java.lang.String" value="TECNICO 3"/>
+        <Property name="text" type="java.lang.String" value="T&#xe9;cnico 3"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TECNICO_3_BOTAOMouseClicked"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="TEXTO_HORA">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="00:00:00"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
