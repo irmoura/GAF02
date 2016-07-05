@@ -184,6 +184,9 @@ public class Tela extends javax.swing.JFrame {
         if(vez == 3 && TECNICO_3_BOTAO.isSelected()){
             vez=1;
         }
+        if(TECNICO_1_BOTAO.isSelected() && TECNICO_3_BOTAO.isSelected()){
+            vez=2;
+        }
         
         
         if(vez == 1 && !TECNICO_1_BOTAO.isSelected()){
