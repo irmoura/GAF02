@@ -27,14 +27,27 @@ public class Tela extends javax.swing.JFrame {
     public int atendimentos_tec_3;
     public int contador;
     public int hora_chegada_tec_1 = 10;
-    public int minuto_chegada_tec_1 = 20;
-    public String horario_tec_1 = "10:20:00";
     public int hora_chegada_tec_2 = 8;
-    public int minuto_chegada_tec_2 = 0;
-    public String horario_tec_2 = "08:00:00";
     public int hora_chegada_tec_3 = 8;
+    public int hora_saida_tec_1 = 19;
+    public int hora_saida_tec_2 = 17;
+    public int hora_saida_tec_3 = 17;
+    public int minuto_saida_tec_1 = 30;
+    public int minuto_saida_tec_2 = 0;
+    public int minuto_saida_tec_3 = 0;
+    public int minuto_chegada_tec_1 = 20;
+    public int minuto_chegada_tec_2 = 0;
     public int minuto_chegada_tec_3 = 0;
-    public String horario_tec_3 = "08:00:00";
+    public String entrada_tec_1 = "10:20:00";
+    public String entrada_tec_2 = "08:00:00";
+    public String entrada_tec_3 = "08:00:00";
+    public String saida_tec_1 = "19:30:00";
+    public String saida_tec_2 = "17:00:00";
+    public String saida_tec_3 = "17:00:00";
+    
+    
+    
+    
     public int hora, minuto, segundo;
     public String horas;
     public Calendar now;
@@ -203,26 +216,26 @@ public class Tela extends javax.swing.JFrame {
             TEXTO_HORA.setText(horas);
             ////////////////////////////////////////////////////////////////////
             /*HABILITA O BOTAO NA HORA E MINUTO DEFINIDOS*/
-            if(horas.equals(horario_tec_1)){
+            if(horas.equals(entrada_tec_1)){
                 TEC_1_BTN.setEnabled(true);
                 TEC_1_BTN.setSelected(ativar);
                 TEC_1_BTN.setBackground(Color.green);
             }
-            if(horas.equals(horario_tec_2)){
+            if(horas.equals(entrada_tec_2)){
                 TEC_2_BTN.setSelected(ativar);
                 TEC_2_BTN.setBackground(Color.green);
             }
-            if(horas.equals(horario_tec_3)){
+            if(horas.equals(entrada_tec_3)){
                 TEC_3_BTN.setSelected(ativar);
                 TEC_3_BTN.setBackground(Color.green);
             }
             ////////////////////////////////////////////////////////////////////
             /*DESAHABILITA O BOTAO NA HORA E MINUTO DEFINIDOS*/
-            if(horas.equals("17:00:00")){
-                TEC_2_BTN.setSelected(desativar);        
-                TEC_2_BTN.setBackground(red);
-                TEC_3_BTN.setSelected(desativar);
-                TEC_3_BTN.setBackground(red);
+            if(horas.equals(saida_tec_2)){
+                TEC_2_BTN.setEnabled(false);
+            }
+            if(horas.equals(saida_tec_3)){
+                TEC_3_BTN.setEnabled(false);
             }
             ////////////////////////////////////////////////////////////////////
         });
@@ -255,6 +268,15 @@ public class Tela extends javax.swing.JFrame {
         TEC_3_BTN.setBackground(Color.green);
         TEC_3_BTN.setText(""+palavras_separadas_linha_3[0]);
         ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+        /*DEPOIS DO HORARIO O BOTAO INICIA DESABILITADO*/
+        if((hora >= hora_saida_tec_2 && minuto >= minuto_saida_tec_2)){
+            TEC_2_BTN.setEnabled(false);
+        }
+        if((hora >= hora_saida_tec_3 && minuto >= minuto_saida_tec_3)){
+            TEC_3_BTN.setEnabled(false);
+        }
+        ////////////////////////////////////////////////////////////////////////
         
     }//GEN-LAST:event_formWindowOpened
 
@@ -267,7 +289,8 @@ public class Tela extends javax.swing.JFrame {
         
         ////////////////////////////////////////////////////////////////////////
         /*SE NENHUM BOTAO ESTIVER HABILITADO*/
-        if(TEC_1_BTN.isSelected() && TEC_2_BTN.isSelected() && TEC_3_BTN.isSelected()){
+        if(TEC_1_BTN.isSelected() && TEC_2_BTN.isSelected() && TEC_3_BTN.isSelected() || 
+          !TEC_1_BTN.isEnabled() && !TEC_2_BTN.isEnabled() && !TEC_3_BTN.isEnabled()){
             JOptionPane.showMessageDialog(null,"Habilite pelo menos um Técnico.","Aviso",JOptionPane.WARNING_MESSAGE);
         }
         ////////////////////////////////////////////////////////////////////////
