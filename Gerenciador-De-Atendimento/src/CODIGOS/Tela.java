@@ -28,10 +28,13 @@ public class Tela extends javax.swing.JFrame {
     public int contador;
     public int hora_chegada_tec_1 = 10;
     public int minuto_chegada_tec_1 = 20;
+    public String horario_tec_1 = "10:20:00";
     public int hora_chegada_tec_2 = 8;
     public int minuto_chegada_tec_2 = 0;
+    public String horario_tec_2 = "08:00:00";
     public int hora_chegada_tec_3 = 8;
     public int minuto_chegada_tec_3 = 0;
+    public String horario_tec_3 = "08:00:00";
     public int hora, minuto, segundo;
     public String horas;
     public Calendar now;
@@ -184,7 +187,13 @@ public class Tela extends javax.swing.JFrame {
         
         BOTAO_ZERAR.setEnabled(false);//INICIA COM O BOTAO ZERAR DESATIVADO
         TEXTO_NOME_DA_VEZ.setForeground(black);//DEFINE A COR PADRAO
-  
+        
+        ////////////////////////////////////////////////////////////////////////
+        /*INICIA COM O TECNICO 1 DESABILITADO*/
+        TEC_1_BTN.setText(""+palavras_separadas_linha_1[0]);
+        TEC_1_BTN.setEnabled(false);
+        ////////////////////////////////////////////////////////////////////////
+        
         timer = new Timer(1000, (ActionEvent e) -> {
             
             contador++;
@@ -194,15 +203,16 @@ public class Tela extends javax.swing.JFrame {
             TEXTO_HORA.setText(horas);
             ////////////////////////////////////////////////////////////////////
             /*HABILITA O BOTAO NA HORA E MINUTO DEFINIDOS*/
-            if(horas.equals(hora_chegada_tec_1+":"+minuto_chegada_tec_1+":00")){
+            if(horas.equals(horario_tec_1)){
+                TEC_1_BTN.setEnabled(true);
                 TEC_1_BTN.setSelected(ativar);
                 TEC_1_BTN.setBackground(Color.green);
             }
-            if(horas.equals(hora_chegada_tec_2+":"+minuto_chegada_tec_2+":00")){
+            if(horas.equals(horario_tec_2)){
                 TEC_2_BTN.setSelected(ativar);
                 TEC_2_BTN.setBackground(Color.green);
             }
-            if(horas.equals(hora_chegada_tec_3+":"+minuto_chegada_tec_3+":00")){
+            if(horas.equals(horario_tec_3)){
                 TEC_3_BTN.setSelected(ativar);
                 TEC_3_BTN.setBackground(Color.green);
             }
@@ -221,7 +231,8 @@ public class Tela extends javax.swing.JFrame {
         
         ////////////////////////////////////////////////////////////////////////
         /*DEPOIS DO HORARIO O BOTAO INICIA HABILITADO*/
-        if((hora >= hora_chegada_tec_1 && minuto >= minuto_chegada_tec_1) || (hora >= hora_chegada_tec_1 && minuto <= minuto_chegada_tec_1)){
+        if((hora >= hora_chegada_tec_1 && minuto >= minuto_chegada_tec_1)){
+            TEC_1_BTN.setEnabled(true);
             TEC_1_BTN.setSelected(false);
             TEC_1_BTN.setBackground(Color.green);
             TEC_1_BTN.setText(""+palavras_separadas_linha_1[0]);
@@ -229,6 +240,7 @@ public class Tela extends javax.swing.JFrame {
         ////////////////////////////////////////////////////////////////////////
         /*ANTES DO HORARIO O BOTAO INICIA DESABILITADO*/
         if((hora <= hora_chegada_tec_1 && minuto < minuto_chegada_tec_1)){
+            TEC_1_BTN.setEnabled(false);
             TEC_1_BTN.setSelected(true);
             TEC_1_BTN.setBackground(Color.red);
             TEC_1_BTN.setText(""+palavras_separadas_linha_1[0]);
@@ -260,17 +272,17 @@ public class Tela extends javax.swing.JFrame {
         }
         ////////////////////////////////////////////////////////////////////////
         /*SE A VEZ FOR DO 1º E O MESMO ESTIVER DESABILITADO*/
-        if(vez == 1 && TEC_1_BTN.isSelected()){
+        if(vez == 1 && TEC_1_BTN.isSelected() || vez == 1 && !TEC_1_BTN.isEnabled()){
             vez++;
         }
         ////////////////////////////////////////////////////////////////////////
         /*SE A VEZ FOR DO 2º E O MESMO ESTIVER DESABILITADO*/
-        if(vez == 2 && TEC_2_BTN.isSelected()){
+        if(vez == 2 && TEC_2_BTN.isSelected() || vez == 2 && !TEC_2_BTN.isEnabled()){
             vez++;
         }
         ////////////////////////////////////////////////////////////////////////
         /*SE A VEZ FOR DO 3º E O MESMO ESTIVER DESABILITADO*/
-        if(vez == 3 && TEC_3_BTN.isSelected()){
+        if(vez == 3 && TEC_3_BTN.isSelected() || vez == 3 && !TEC_3_BTN.isEnabled()){
             vez=1;
         }
         ////////////////////////////////////////////////////////////////////////
@@ -311,7 +323,7 @@ public class Tela extends javax.swing.JFrame {
         }
         ////////////////////////////////////////////////////////////////////////
         /*SE A VEZ FOR DO 3º E O MESMO ESTIVER DESABILITADO*/
-        if(vez == 3 && TEC_3_BTN.isSelected()){
+        if(vez == 3 && TEC_3_BTN.isSelected() || vez == 3 && !TEC_3_BTN.isEnabled()){
             vez = 0;
         }
         ////////////////////////////////////////////////////////////////////////
