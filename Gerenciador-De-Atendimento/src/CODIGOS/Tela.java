@@ -270,6 +270,9 @@ public class Tela extends javax.swing.JFrame {
         ////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////
         /*DEPOIS DO HORARIO O BOTAO INICIA DESABILITADO*/
+        if((hora >= hora_saida_tec_1 && minuto >= minuto_saida_tec_1)){
+            TEC_1_BTN.setEnabled(false);
+        }
         if((hora >= hora_saida_tec_2 && minuto >= minuto_saida_tec_2)){
             TEC_2_BTN.setEnabled(false);
         }
@@ -287,6 +290,12 @@ public class Tela extends javax.swing.JFrame {
         
         vez++;//A cada clique incrementa +1  
         
+        ////////////////////////////////////////////////////////////////////////
+        /*SE NENHUM BOTAO ESTIVER HABILITADO*/
+        if(!TEC_1_BTN.isSelected() && TEC_2_BTN.isSelected() && TEC_3_BTN.isSelected() || 
+          !TEC_1_BTN.isEnabled() && !TEC_2_BTN.isEnabled() && !TEC_3_BTN.isEnabled()){
+            JOptionPane.showMessageDialog(null,"Habilite pelo menos um Técnico.","Aviso",JOptionPane.WARNING_MESSAGE);
+        }
         ////////////////////////////////////////////////////////////////////////
         /*SE NENHUM BOTAO ESTIVER HABILITADO*/
         if(TEC_1_BTN.isSelected() && TEC_2_BTN.isSelected() && TEC_3_BTN.isSelected() || 
