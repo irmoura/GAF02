@@ -91,6 +91,7 @@ public class Tela extends javax.swing.JFrame {
         TEC_1_BTN = new javax.swing.JToggleButton();
         TEC_2_BTN = new javax.swing.JToggleButton();
         TEC_3_BTN = new javax.swing.JToggleButton();
+        jLabel1 = new javax.swing.JLabel();
         PAPEL_DE_PAREDE = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -151,6 +152,9 @@ public class Tela extends javax.swing.JFrame {
             }
         });
         jDesktopPane1.add(TEC_3_BTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 330, -1, -1));
+
+        jLabel1.setText("Desenvolvedor : Ismael Ribeiro");
+        jDesktopPane1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, -1, -1));
 
         PAPEL_DE_PAREDE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/CODIGOS/Imagens/vistamizer-windows-vista-wallpaper-pack-14.jpg"))); // NOI18N
         PAPEL_DE_PAREDE.setAlignmentY(0.0F);
@@ -475,5 +479,6 @@ public class Tela extends javax.swing.JFrame {
     private javax.swing.JLabel TEXTO_NOME_DA_VEZ;
     private javax.swing.JLabel TEXTO_TOTAL;
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
