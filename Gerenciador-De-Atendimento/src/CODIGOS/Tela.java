@@ -122,11 +122,11 @@ public class Tela extends javax.swing.JFrame {
 
         TEXTO_HORA.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         TEXTO_HORA.setText("00:00:00");
-        jDesktopPane1.add(TEXTO_HORA, new org.netbeans.lib.awtextra.AbsoluteConstraints(678, 26, -1, -1));
+        jDesktopPane1.add(TEXTO_HORA, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 40, -1, -1));
 
         TEXTO_NOME_DA_VEZ.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         TEXTO_NOME_DA_VEZ.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jDesktopPane1.add(TEXTO_NOME_DA_VEZ, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 716, 106));
+        jDesktopPane1.add(TEXTO_NOME_DA_VEZ, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 680, 106));
 
         TEC_1_BTN.setText("Técnico 1");
         TEC_1_BTN.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -134,7 +134,7 @@ public class Tela extends javax.swing.JFrame {
                 TEC_1_BTNMouseClicked(evt);
             }
         });
-        jDesktopPane1.add(TEC_1_BTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 330, -1, -1));
+        jDesktopPane1.add(TEC_1_BTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 330, -1, -1));
 
         TEC_2_BTN.setText("Técnico 2");
         TEC_2_BTN.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -142,7 +142,7 @@ public class Tela extends javax.swing.JFrame {
                 TEC_2_BTNMouseClicked(evt);
             }
         });
-        jDesktopPane1.add(TEC_2_BTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 330, -1, -1));
+        jDesktopPane1.add(TEC_2_BTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 330, -1, -1));
 
         TEC_3_BTN.setText("Técnico 3");
         TEC_3_BTN.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -150,7 +150,7 @@ public class Tela extends javax.swing.JFrame {
                 TEC_3_BTNMouseClicked(evt);
             }
         });
-        jDesktopPane1.add(TEC_3_BTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 330, -1, -1));
+        jDesktopPane1.add(TEC_3_BTN, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 330, -1, -1));
 
         PAPEL_DE_PAREDE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/CODIGOS/Imagens/vistamizer-windows-vista-wallpaper-pack-14.jpg"))); // NOI18N
         PAPEL_DE_PAREDE.setAlignmentY(0.0F);
@@ -160,13 +160,11 @@ public class Tela extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -229,7 +227,7 @@ public class Tela extends javax.swing.JFrame {
         
         ////////////////////////////////////////////////////////////////////////
         /*DEPOIS DO HORARIO O BOTAO INICIA HABILITADO*/
-        if((hora >= hora_chegada_tec_1 && minuto >= minuto_chegada_tec_1)){
+        if((hora >= hora_chegada_tec_1)){
             TEC_1_BTN.setEnabled(true);
             TEC_1_BTN.setSelected(false);
             TEC_1_BTN.setBackground(Color.green);
