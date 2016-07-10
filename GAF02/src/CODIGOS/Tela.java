@@ -231,7 +231,8 @@ public class Tela extends javax.swing.JFrame {
         
         ////////////////////////////////////////////////////////////////////////
         /*DEPOIS DO HORARIO DE CHEGADA O BOTAO INICIA HABILITADO*/
-        if((hora >= hora_chegada_tec_1)){
+        if((hora >= hora_chegada_tec_1 && minuto >= minuto_chegada_tec_1) && 
+           (hora <= hora_saida_tec_1 && minuto < minuto_saida_tec_1)){
             TEC_1_BTN.setEnabled(true);
             TEC_1_BTN.setSelected(false);
             TEC_1_BTN.setBackground(Color.green);
