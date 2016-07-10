@@ -180,7 +180,7 @@ public class Tela extends javax.swing.JFrame {
         
         password = new Password();
         obterHoras();//OBTEM A HORA EM QUE O PROGRAMA É ABERTO
-        CODIGOS.Pasta.criar("GaF02");//Cria a pasta principal do programa C:\\GaF02
+        CODIGOS.Pasta.criar("GAF02");//Cria a pasta principal do programa C:\\GaF02
         CODIGOS.Arquivo.criar("Tecnicos");//Cria o arquivo principal do programa C:\\GaF02\\Tecnicos.txt
         CODIGOS.Arquivo.criar("Registros");//Cria o arquivo C:\\GaF02\\Registros.txt
         CODIGOS.Arquivo.ler("Tecnicos");//Faz a leitura do arquivo principal C:\\GaF02\\Tecnicos.txt
@@ -189,7 +189,7 @@ public class Tela extends javax.swing.JFrame {
         TEXTO_NOME_DA_VEZ.setForeground(black);//DEFINE A COR PADRAO
         
         ////////////////////////////////////////////////////////////////////////
-        /*INICIA COM O TECNICO 1 DESABILITADO*/
+        /*TÉCNICOS QUE INICIAM DESABILITADOS*/
         TEC_1_BTN.setText(""+palavras_separadas_linha_1[0]);
         TEC_1_BTN.setEnabled(false);
         ////////////////////////////////////////////////////////////////////////
@@ -202,7 +202,7 @@ public class Tela extends javax.swing.JFrame {
 
             TEXTO_HORA.setText(horas);
             ////////////////////////////////////////////////////////////////////
-            /*HABILITA O BOTAO NA HORA E MINUTO DEFINIDOS*/
+            /*TÉCNICOS HABILITADOS NA HORA E MINUTO DEFINIDOS*/
             if(horas.equals(entrada_tec_1)){
                 TEC_1_BTN.setEnabled(true);
                 TEC_1_BTN.setSelected(ativar);
@@ -217,7 +217,7 @@ public class Tela extends javax.swing.JFrame {
                 TEC_3_BTN.setBackground(Color.green);
             }
             ////////////////////////////////////////////////////////////////////
-            /*DESAHABILITA O BOTAO NA HORA E MINUTO DEFINIDOS*/
+            /*TÉCNICOS DESABILITADOS NA HORA E MINUTO DEFINIDOS*/
             if(horas.equals(saida_tec_2)){
                 TEC_2_BTN.setEnabled(false);
             }
@@ -230,7 +230,7 @@ public class Tela extends javax.swing.JFrame {
         timer.start();
         
         ////////////////////////////////////////////////////////////////////////
-        /*DEPOIS DO HORARIO O BOTAO INICIA HABILITADO*/
+        /*DEPOIS DO HORARIO DE CHEGADA O BOTAO INICIA HABILITADO*/
         if((hora >= hora_chegada_tec_1)){
             TEC_1_BTN.setEnabled(true);
             TEC_1_BTN.setSelected(false);
@@ -255,7 +255,6 @@ public class Tela extends javax.swing.JFrame {
         TEC_3_BTN.setBackground(Color.green);
         TEC_3_BTN.setText(""+palavras_separadas_linha_3[0]);
         ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
         /*DEPOIS DO HORARIO O BOTAO INICIA DESABILITADO*/
         if((hora >= hora_saida_tec_1 && minuto >= minuto_saida_tec_1)){
             TEC_1_BTN.setEnabled(false);
@@ -273,7 +272,7 @@ public class Tela extends javax.swing.JFrame {
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         // TODO add your handling code here:
         
-        BOTAO_ZERAR.setEnabled(desativar);//Ao primeiro clique habilita o botão zerar
+        BOTAO_ZERAR.setEnabled(true);//Ao primeiro clique habilita o botão zerar
         
         vez++;//A cada clique incrementa +1  
         
